@@ -1,6 +1,6 @@
- // v1.0.0 \\
+ /ww/ v1.0.0 \\
  <b><u>CF-Release</b></u>
  <b>- Changes</b>
  - Implemented download functionality
  - Fetched update logs dynamically
- ** v1.0.0 **
+ *ww* v1.0.0 **
