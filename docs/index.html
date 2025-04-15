@@ -5,39 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CF-Client</title>
   <!-- Link to the stylesheet -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="syle.css" />
   <!-- Favicon -->
   <link rel="icon" href="econ.ico" type="image/x-icon" />
 </head>
 <body>
-  <!-- Interactive Banner -->
-  <div id="banner-container" ondblclick="redirectToGithub()">
-    <img src="assets/gui_logo.png" alt="Banner Image" id="banner-img" />
+  <div class="container">
+    <!-- Interactive Banner -->
+    <div id="banner-container" ondblclick="redirectToGithub()">
+      <img src="assets/gui_logo.png" alt="Banner Image" id="banner-img" />
+    </div>
+    
+    <!-- Download Button -->
+    <div id="button-container">
+      <button id="download-btn" onclick="downloadFile()">Download</button>
+    </div>
+    
+    <!-- Version Info Display -->
+    <div id="version-info"></div>
   </div>
-  
-  <!-- Normal Button -->
-  <div id="button-container">
-    <button id="download-btn" onclick="downloadFile()">Download</button>
-  </div>
-  
-  <!-- Version Info Display -->
-  <div id="version-info"></div>
   
   <script>
     // Redirect to GitHub when the banner is double-clicked
     function redirectToGithub() {
       window.location.href = "https://github.com/faffa81/CF-Client";
     }
-
-    // Trigger file download when button is clicked
+    
+    // Trigger file download when the button is clicked
     function downloadFile() {
-      const fileURL = "download/cf-client"; // Path to the downloadable file
+      const fileURL = "assets/gui_icon.svg"; // Path to the downloadable file
       const link = document.createElement("a");
       link.href = fileURL;
-      link.download = "gui_icon.svg"; // Optional: Rename downloaded file
+      link.download = "gui_icon.svg"; // Optional: Change file name on download
       link.click();
     }
-
+    
     // Load version info from version.json and display it
     function loadVersionInfo() {
       fetch('version.json')
@@ -56,7 +58,7 @@
           document.getElementById('version-info').textContent = "Version info unavailable";
         });
     }
-
+    
     // Ensure version info is loaded when the DOM is ready
     document.addEventListener('DOMContentLoaded', loadVersionInfo);
   </script>
