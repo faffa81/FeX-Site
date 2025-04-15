@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My GitHub Site</title>
-  <!-- Link to the stylesheet (in the same directory as index.html) -->
+  <!-- Link to the stylesheet -->
   <link rel="stylesheet" href="syle.css" />
   <!-- Favicon -->
   <link rel="icon" href="econ.ico" type="image/x-icon" />
@@ -12,15 +12,13 @@
 <body>
   <!-- Interactive Banner -->
   <div id="banner-container" ondblclick="redirectToGithub()">
-    <!-- Using Background.png from the assets folder -->
-    <img src="assets/Background.png" alt="Banner Image" id="banner-img" />
+    <img src="assets/gui_icon.png" alt="Banner Image" id="banner-img" />
   </div>
   
-  <!-- Download Button -->
-  <!-- Using gui_icon.svg as the downloadable asset -->
-  <a id="download-btn" href="assets/gui_icon.svg" download>
-    Download
-  </a>
+  <!-- Normal Button -->
+  <div id="button-container">
+    <button id="download-btn" onclick="downloadFile()">Download</button>
+  </div>
   
   <!-- Version Info Display -->
   <div id="version-info"></div>
@@ -28,10 +26,18 @@
   <script>
     // Redirect to GitHub when the banner is double-clicked
     function redirectToGithub() {
-      // Replace with your own GitHub repository or profile
       window.location.href = "https://github.com/faffa81/CF-Client";
     }
-    
+
+    // Trigger file download when button is clicked
+    function downloadFile() {
+      const fileURL = "assets/gui_icon.svg"; // Path to the downloadable file
+      const link = document.createElement("a");
+      link.href = fileURL;
+      link.download = "gui_icon.svg"; // Optional: Rename downloaded file
+      link.click();
+    }
+
     // Load version info from version.json and display it
     function loadVersionInfo() {
       fetch('version.json')
@@ -50,7 +56,7 @@
           document.getElementById('version-info').textContent = "Version info unavailable";
         });
     }
-    
+
     // Ensure version info is loaded when the DOM is ready
     document.addEventListener('DOMContentLoaded', loadVersionInfo);
   </script>
