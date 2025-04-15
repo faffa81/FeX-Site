@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My GitHub Site</title>
+  <!-- Link to the stylesheet (in the same directory as index.html) -->
+  <link rel="stylesheet" href="syle.css" />
+  <!-- Favicon -->
+  <link rel="icon" href="econ.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- Interactive Banner -->
+  <div id="banner-container" ondblclick="redirectToGithub()">
+    <!-- Using Background.png from the assets folder -->
+    <img src="assets/Background.png" alt="Banner Image" id="banner-img" />
+  </div>
+  
+  <!-- Download Button -->
+  <!-- Using gui_icon.svg as the downloadable asset -->
+  <a id="download-btn" href="assets/gui_icon.svg" download>
+    Download
+  </a>
+  
+  <!-- Version Info Display -->
+  <div id="version-info"></div>
+  
+  <script>
+    // Redirect to GitHub when the banner is double-clicked
+    function redirectToGithub() {
+      // Replace with your own GitHub repository or profile
+      window.location.href = "https://github.com/faffa81/CF-Client";
+    }
+    
+    // Load version info from version.json and display it
+    function loadVersionInfo() {
+      fetch('version.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const versionStr = `Version: ${data.version} | Released: ${data.release_date} | Notes: ${data.notes}`;
+          document.getElementById('version-info').textContent = versionStr;
+        })
+        .catch(error => {
+          console.error('Error fetching version.json:', error);
+          document.getElementById('version-info').textContent = "Version info unavailable";
+        });
+    }
+    
+    // Ensure version info is loaded when the DOM is ready
+    document.addEventListener('DOMContentLoaded', loadVersionInfo);
+  </script>
+</body>
+</html>
