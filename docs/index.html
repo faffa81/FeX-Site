@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My GitHub Site</title>
+  <title>CF-Client</title>
   <!-- Link to the stylesheet -->
   <link rel="stylesheet" href="style.css" />
   <!-- Favicon -->
@@ -12,7 +12,7 @@
 <body>
   <!-- Interactive Banner -->
   <div id="banner-container" ondblclick="redirectToGithub()">
-    <img src="assets/gui_icon.png" alt="Banner Image" id="banner-img" />
+    <img src="assets/gui_logo.png" alt="Banner Image" id="banner-img" />
   </div>
   
   <!-- Normal Button -->
@@ -31,7 +31,7 @@
 
     // Trigger file download when button is clicked
     function downloadFile() {
-      const fileURL = "assets/gui_icon.svg"; // Path to the downloadable file
+      const fileURL = "download/cf-client"; // Path to the downloadable file
       const link = document.createElement("a");
       link.href = fileURL;
       link.download = "gui_icon.svg"; // Optional: Rename downloaded file
