@@ -54,8 +54,9 @@
       window.location.href = "https://github.com/faffa81/CF-Client";
     });
 
-    // Load version info from version.json.
+    // Load version info and latest release URL
     function loadVersionInfo() {
+      // First fetch version info
       fetch('version.json')
         .then(response => {
           if (!response.ok) throw new Error("Network response error");
@@ -64,6 +65,18 @@
         .then(data => {
           document.getElementById('version-info').textContent =
             `Version: ${data.version} | Released: ${data.release_date} | Notes: ${data.notes}`;
+            
+          // Then fetch latest release info from GitHub
+          return fetch('https://api.github.com/repos/faffa81/CF-Client/releases/latest');
+        })
+        .then(response => response.json())
+        .then(release => {
+          if (release.assets && release.assets.length > 0) {
+            // Store the download URL as a data attribute
+            document.documentElement.setAttribute('data-update-url', release.assets[0].browser_download_url);
+            // Also store the version
+            document.documentElement.setAttribute('data-latest-version', release.tag_name);
+          }
         })
         .catch(error => {
           console.error("Error loading version info:", error);
@@ -161,6 +174,28 @@
       document.getElementById('download-modal').style.display = "block";
     }
 
+        // Update the update.json file with latest version and download URL
+    function updateUpdateInfo() {
+      fetch('https://api.github.com/repos/faffa81/CF-Client/releases/latest')
+        .then(response => response.json())
+        .then(release => {
+          if (release.assets && release.assets.length > 0) {
+            const updateInfo = {
+              version: release.tag_name,
+              download_url: release.assets[0].browser_download_url
+            };
+            
+            // Log the update info for debugging
+            console.log('Update info:', updateInfo);
+            
+            return updateInfo;
+          }
+        })
+        .catch(error => {
+          console.error("Error updating update info:", error);
+        });
+    }
+
     // Close the releases modal.
     function closeModal() {
       document.getElementById('download-modal').style.display = "none";
@@ -169,6 +204,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadVersionInfo();
       loadUpdateLogs();
+      updateUpdateInfo();
     });
   </script>
 </body>

@@ -1,6 +1,8 @@
- /ww/ v1.0.0 \\
+ // v0.1.0 \\
  <b><u>CF-Release</b></u>
  <b>- Changes</b>
- - Implemented download functionality
- - Fetched update logs dynamically
- *ww* v1.0.0 **
+ <b>- Release of CF-Client</b>
+ - Added Warlist
+ - Added Visual settings
+ - Added more stuff from FeX
+ ** v0.1.0 **
