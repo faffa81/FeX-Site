@@ -54,35 +54,51 @@
       window.location.href = "https://github.com/faffa81/CF-Client";
     });
 
-    // Load version info and latest release URL
+  // Load version info from version.json and GitHub release data.
     function loadVersionInfo() {
-      // First fetch version info
-      fetch('version.json')
-        .then(response => {
-          if (!response.ok) throw new Error("Network response error");
-          return response.json();
-        })
-        .then(data => {
-          document.getElementById('version-info').textContent =
-            `Version: ${data.version} | Released: ${data.release_date} | Notes: ${data.notes}`;
+    // First, fetch the local version.json file.
+    fetch('version.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response error from version.json");
+        }
+        return response.json();
+      })
+      .then(localData => {
+        // Next, fetch the latest release info from the GitHub API.
+        fetch('https://api.github.com/repos/faffa81/FeX-V2-Client/releases/latest')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Network response error from GitHub API");
+            }
+            return response.json();
+          })
+          .then(githubData => {
+            // Extract the browser_download_url from the first asset.
+            let downloadUrl = "Download URL not available";
+            if (githubData.assets && githubData.assets.length > 0) {
+              downloadUrl = githubData.assets[0].browser_download_url;
+            }
             
-          // Then fetch latest release info from GitHub
-          return fetch('https://api.github.com/repos/faffa81/CF-Client/releases/latest');
-        })
-        .then(response => response.json())
-        .then(release => {
-          if (release.assets && release.assets.length > 0) {
-            // Store the download URL as a data attribute
-            document.documentElement.setAttribute('data-update-url', release.assets[0].browser_download_url);
-            // Also store the version
-            document.documentElement.setAttribute('data-latest-version', release.tag_name);
-          }
-        })
-        .catch(error => {
-          console.error("Error loading version info:", error);
-          document.getElementById('version-info').textContent = "Version info unavailable";
-        });
-    }
+            // Set the download property to the fetched download URL.
+            localData.download = downloadUrl;
+            
+            // Update the DOM element with the combined information.
+            document.getElementById('version-info').textContent =
+              `Version: ${localData.version} | Released: ${localData.release_date} | Notes: ${localData.notes} | Download URL: ${localData.download}`;
+          })
+          .catch(error => {
+            console.error("Error loading GitHub release data:", error);
+            // Display local version data without the download URL if GitHub fetch fails.
+            document.getElementById('version-info').textContent =
+              `Version: ${localData.version} | Released: ${localData.release_date} | Notes: ${localData.notes} | Download URL: unavailable`;
+          });
+      })
+      .catch(error => {
+        console.error("Error loading version info:", error);
+        document.getElementById('version-info').textContent = "Version info unavailable";
+      });
+  }
 
     // Load and parse update logs from updatelogs.txt.
     // Expected format:
@@ -174,28 +190,6 @@
       document.getElementById('download-modal').style.display = "block";
     }
 
-        // Update the update.json file with latest version and download URL
-    function updateUpdateInfo() {
-      fetch('https://api.github.com/repos/faffa81/CF-Client/releases/latest')
-        .then(response => response.json())
-        .then(release => {
-          if (release.assets && release.assets.length > 0) {
-            const updateInfo = {
-              version: release.tag_name,
-              download_url: release.assets[0].browser_download_url
-            };
-            
-            // Log the update info for debugging
-            console.log('Update info:', updateInfo);
-            
-            return updateInfo;
-          }
-        })
-        .catch(error => {
-          console.error("Error updating update info:", error);
-        });
-    }
-
     // Close the releases modal.
     function closeModal() {
       document.getElementById('download-modal').style.display = "none";
@@ -204,7 +198,6 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadVersionInfo();
       loadUpdateLogs();
-      updateUpdateInfo();
     });
   </script>
 </body>
