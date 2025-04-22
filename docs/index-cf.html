@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CF-Client</title>
+  <!-- Link to the stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Favicon -->
+  <link rel="icon" href="econ.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- Header: Top Section with the Banner -->
+  <header>
+    <div class="top-bar">
+      <div id="banner-container">
+        <img id="banner-img" class="center-logo" src="assets/gui_logo.png" alt="Banner Image">
+      </div>
+    </div>
+  </header>
+
+  <!-- Main: Middle Section with Update Logs -->
+  <main>
+    <section id="update-log-section">
+      <!-- Fixed container for update log buttons so they don’t scroll with the log content -->
+      <div id="log-buttons-container">
+        <div id="log-buttons"></div>
+      </div>
+      <!-- Scrollable update log frame -->
+      <div id="update-log-frame">Loading update logs...</div>
+    </section>
+  </main>
+
+  <!-- Footer: Bottom Section with Download Button and Version Info -->
+  <footer>
+    <button id="download-btn" onclick="showReleases()">Download Releases</button>
+    <div id="version-info">Loading version info...</div>
+    <div class="footer">
+      <p>&copy; 2025 ©CF-Client</p>
+    </div>
+  </footer>
+
+  <!-- Modal for Releases -->
+  <div id="download-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="releases-list">Loading releases...</div>
+    </div>
+  </div>
+
+  <script>
+    // Double-click the banner to go to your GitHub repository.
+    document.getElementById('banner-container').addEventListener('dblclick', function() {
+      window.location.href = "https://github.com/faffa81/CF-Client";
+    });
+
+  // Load version info from version.json and GitHub release data.
+    function loadVersionInfo() {
+    // First, fetch the local version.json file.
+    fetch('version.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response error from version.json");
+        }
+        return response.json();
+      })
+      .then(localData => {
+        // Next, fetch the latest release info from the GitHub API.
+        fetch('https://api.github.com/repos/faffa81/CF-Client/releases/latest')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Network response error from GitHub API");
+            }
+            return response.json();
+          })
+          .then(githubData => {
+            // Extract the browser_download_url from the first asset.
+            let downloadUrl = "Download URL not available";
+            if (githubData.assets && githubData.assets.length > 0) {
+              downloadUrl = githubData.assets[0].browser_download_url;
+            }
+            
+            // Set the download property to the fetched download URL.
+            localData.download = downloadUrl;
+            
+            // Update the DOM element with the combined information.
+            document.getElementById('version-info').textContent =
+              `Version: ${localData.version} | Released: ${localData.release_date} | Notes: ${localData.notes} | Download URL: ${localData.download}`;
+          })
+          .catch(error => {
+            console.error("Error loading GitHub release data:", error);
+            // Display local version data without the download URL if GitHub fetch fails.
+            document.getElementById('version-info').textContent =
+              `Version: ${localData.version} | Released: ${localData.release_date} | Notes: ${localData.notes} | Download URL: unavailable`;
+          });
+      })
+      .catch(error => {
+        console.error("Error loading version info:", error);
+        document.getElementById('version-info').textContent = "Version info unavailable";
+      });
+  }
+
+    // Load and parse update logs from updatelogs.txt.
+    // Expected format:
+    //   // v1.0.0 \\
+    //   (Update log text …)
+    //   ** v1.0.0 **
+    function loadUpdateLogs() {
+      fetch('updatelogs.txt')
+        .then(response => {
+          if (!response.ok) throw new Error("Network error loading update logs");
+          return response.text();
+        })
+        .then(text => {
+          const sections = [];
+          const regex = /\/\/\s*(v[\d\.]+)\s*\\\\\s*([\s\S]*?)\*\*\s*\1\s*\*\*/g;
+          let match;
+          while ((match = regex.exec(text)) !== null) {
+            sections.push({ version: match[1], log: match[2].trim() });
+          }
+          const logButtonsDiv = document.getElementById('log-buttons');
+          logButtonsDiv.innerHTML = "";
+          sections.forEach(section => {
+            let btn = document.createElement('button');
+            btn.textContent = section.version;
+            btn.classList.add('log-btn');
+            btn.onclick = () => {
+              displayUpdateLog(section.log);
+              highlightButton(btn);
+            };
+            logButtonsDiv.appendChild(btn);
+          });
+          if (sections.length > 0) {
+            displayUpdateLog(sections[0].log);
+            const firstBtn = logButtonsDiv.querySelector('button');
+            firstBtn && firstBtn.classList.add('active');
+          } else {
+            document.getElementById('update-log-frame').textContent = "No update logs found.";
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching update logs:", error);
+          document.getElementById('update-log-frame').textContent = "Could not load update logs.";
+        });
+    }
+
+    // Display update log content in a <pre> element to preserve formatting.
+    function displayUpdateLog(logContent) {
+      document.getElementById('update-log-frame').innerHTML = "<pre>" + logContent + "</pre>";
+    }
+
+    // Highlight the active update log button.
+    function highlightButton(activeBtn) {
+      document.querySelectorAll('.log-btn').forEach(btn => btn.classList.remove('active'));
+      activeBtn.classList.add('active');
+    }
+
+    // Fetch releases from the GitHub API and display them in a modal.
+    function showReleases() {
+      const releasesList = document.getElementById('releases-list');
+      releasesList.innerHTML = "Loading releases...";
+      fetch('https://api.github.com/repos/faffa81/CF-Client/releases')
+        .then(response => {
+          if (!response.ok) throw new Error("Failed to fetch releases");
+          return response.json();
+        })
+        .then(data => {
+          if (data.length === 0) {
+            releasesList.innerHTML = "No releases found.";
+            return;
+          }
+          let html = "<ul>";
+          data.forEach(release => {
+            let assetsInfo = "";
+            release.assets.forEach(asset => {
+              assetsInfo += `<li>${asset.name} — ${asset.download_count} downloads — <a href="${asset.browser_download_url}" target="_blank">Download</a></li>`;
+            });
+            html += `<li>
+                      <strong>${release.tag_name}</strong> (${release.name || "No name"})<br/>
+                      <ul>${assetsInfo}</ul>
+                     </li>`;
+          });
+          html += "</ul>";
+          releasesList.innerHTML = html;
+        })
+        .catch(error => {
+          console.error("Error fetching releases:", error);
+          releasesList.innerHTML = "Failed to load releases.";
+        });
+      document.getElementById('download-modal').style.display = "block";
+    }
+
+    // Close the releases modal.
+    function closeModal() {
+      document.getElementById('download-modal').style.display = "none";
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadVersionInfo();
+      loadUpdateLogs();
+    });
+  </script>
+</body>
+</html>
