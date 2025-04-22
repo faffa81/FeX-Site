@@ -7,14 +7,14 @@
   <!-- Link to the stylesheet -->
   <link rel="stylesheet" href="style.css" />
   <!-- Favicon -->
-  <link rel="icon" href="econ.ico" type="image/x-icon" />
+  <link rel="icon" href="../econ.ico" type="image/x-icon" />
 </head>
 <body>
   <!-- Header: Top Section with the Banner -->
   <header>
     <div class="top-bar">
       <div id="banner-container">
-        <img id="banner-img" class="center-logo" src="assets/gui_logo.png" alt="Banner Image">
+        <img id="banner-img" class="center-logo" src="../assets/gui_logo.png" alt="Banner Image">
       </div>
     </div>
   </header>
@@ -51,13 +51,13 @@
   <script>
     // Double-click the banner to go to your GitHub repository.
     document.getElementById('banner-container').addEventListener('dblclick', function() {
-      window.location.href = "https://github.com/faffa81/CF-Client";
+      window.location.href = "https://github.com/faffa81/FeX-V2-Client";
     });
 
   // Load version info from version.json and GitHub release data.
     function loadVersionInfo() {
     // First, fetch the local version.json file.
-    fetch('version.json')
+    fetch('../version.json')
       .then(response => {
         if (!response.ok) {
           throw new Error("Network response error from version.json");
@@ -66,7 +66,7 @@
       })
       .then(localData => {
         // Next, fetch the latest release info from the GitHub API.
-        fetch('https://api.github.com/repos/faffa81/CF-Client/releases/latest')
+        fetch('https://api.github.com/repos/faffa81/FeX-V2-Client/releases/latest')
           .then(response => {
             if (!response.ok) {
               throw new Error("Network response error from GitHub API");
@@ -106,7 +106,7 @@
     //   (Update log text …)
     //   ** v1.0.0 **
     function loadUpdateLogs() {
-      fetch('updatelogs.txt')
+      fetch('../updatelogs.txt')
         .then(response => {
           if (!response.ok) throw new Error("Network error loading update logs");
           return response.text();
@@ -159,7 +159,7 @@
     function showReleases() {
       const releasesList = document.getElementById('releases-list');
       releasesList.innerHTML = "Loading releases...";
-      fetch('https://api.github.com/repos/faffa81/CF-Client/releases')
+      fetch('https://api.github.com/repos/faffa81/FeX-V2-Client/releases')
         .then(response => {
           if (!response.ok) throw new Error("Failed to fetch releases");
           return response.json();

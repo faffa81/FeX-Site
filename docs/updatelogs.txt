@@ -1,8 +1,6 @@
- // v0.1.0 \\
- <b><u>CF-Release</b></u>
+ // v5.0 \\
+ <b><u>FeX-Release</b></u>
  <b>- Changes</b>
- <b>- Release of CF-Client</b>
- - Added Warlist
- - Added Visual settings
- - Added more stuff from FeX
- ** v0.1.0 **
+ <b>- Release of FeX-Client</b>
+ -- alot
+ ** v5.0 **
