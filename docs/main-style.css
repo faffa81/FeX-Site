@@ -54,8 +54,8 @@ h1 {
     background: linear-gradient(45deg, #2196F3, #9C27B0);
 }
 
-.your-project-btn {
-    background: linear-gradient(45deg, #9C27B0, #f30000);
+.dnu-btn {
+    background: linear-gradient(45deg, black, blue, purple, black);
 }
 
 .btn-text {

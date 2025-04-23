@@ -1,0 +1,3 @@
+\v1.0//
+Changelog for version 1.0: Fixed bugs, etc.
+*e*
