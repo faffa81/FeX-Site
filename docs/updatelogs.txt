@@ -1,6 +1,35 @@
+ // v2.0 \\
+ <b><u>FeX-v2.0</b></u>
+ <b>--Changes--</b>
+ -- added rainbow mode
+ -- reworked freezekill
+ -- added vote kick command(only works with both arguments)
+ -- added chat settings
+ -- added profiles(tater)
+ -- added auto reply
+ <b>--BugFixes--</b>
+ --Fixed Fastinput
+ <b>--Major Stuff--</b>
+ ** v2.0 **
+ 
  // v5.0 \\
- <b><u>FeX-Release</b></u>
- <b>- Changes</b>
- <b>- Release of FeX-Client</b>
- -- alot
+ <b><u>FeX-v5.0</b></u>
+ <b>--Changes--</b>
+ -- Added a better rainbow system: tater and own stuff
+ -- Added joining entries(idicated there where you can join friends with a: "W")
+ <b>--BugFixes--</b>
+ -- Fixed Auto dummy connect but lost Auto dummy join
+ -- Fixed minor change to the 1v1 system
+ <b>--Major Stuff--</b>
  ** v5.0 **
+
+ // v5.1 \\
+ <b><u>FeX-v5.1</b></u>
+ <b>--Changes--</b>
+ -- Updated to DDNet: 19.2
+ <b>--BugFixes--</b>
+ -- Fixed mute not working
+ -- Fixed 1v1 under 0 not working
+ <b>--Major Stuff--</b>
+ -- Added github support
+ ** v5.1 **
