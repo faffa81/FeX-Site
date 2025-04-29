@@ -1,3 +1,14 @@
+ // v5.1 \\
+ <b><u>FeX-v5.1</b></u>
+ <b>--Changes--</b>
+ -- Updated to DDNet: 19.2
+ <b>--BugFixes--</b>
+ -- Fixed mute not working
+ -- Fixed 1v1 under 0 not working
+ <b>--Major Stuff--</b>
+ -- Added github support
+ ** v5.1 **
+
  // v2.0 \\
  <b><u>FeX-v2.0</b></u>
  <b>--Changes--</b>
@@ -22,14 +33,3 @@
  -- Fixed minor change to the 1v1 system
  <b>--Major Stuff--</b>
  ** v5.0 **
-
- // v5.1 \\
- <b><u>FeX-v5.1</b></u>
- <b>--Changes--</b>
- -- Updated to DDNet: 19.2
- <b>--BugFixes--</b>
- -- Fixed mute not working
- -- Fixed 1v1 under 0 not working
- <b>--Major Stuff--</b>
- -- Added github support
- ** v5.1 **
