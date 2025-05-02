@@ -1,3 +1,17 @@
+ // v6.0 \\
+ <b><u>FeX-v6.0</b></u>
+ <b>--Changes--</b>
+ -- Added more customization to the start menu
+ -- Custom loading screen(toggled with fx_custom_loading 1/0)
+ -- Added quick actions to start menu(quickjoin)
+ -- Added lifetime kills and time
+ -- Added saving to the last FeX tab you are on
+ -- Added skin and stats viewer to the start menu(skin, name, clan, lifetimestats)
+ <b>--BugFixes--</b>
+ <b>--Major Stuff--</b>
+ -- Added a Github updater(not tested yet but will soon)
+ ** v6.0 **
+
  // v5.1 \\
  <b><u>FeX-v5.1</b></u>
  <b>--Changes--</b>
@@ -8,6 +22,17 @@
  <b>--Major Stuff--</b>
  -- Added github support
  ** v5.1 **
+
+ // v5.0 \\
+ <b><u>FeX-v5.0</b></u>
+ <b>--Changes--</b>
+ -- Added a better rainbow system: tater and own stuff
+ -- Added joining entries(idicated there where you can join friends with a: "W")
+ <b>--BugFixes--</b>
+ -- Fixed Auto dummy connect but lost Auto dummy join
+ -- Fixed minor change to the 1v1 system
+ <b>--Major Stuff--</b>
+ ** v5.0 **
 
  // v2.0 \\
  <b><u>FeX-v2.0</b></u>
@@ -22,14 +47,3 @@
  --Fixed Fastinput
  <b>--Major Stuff--</b>
  ** v2.0 **
- 
- // v5.0 \\
- <b><u>FeX-v5.0</b></u>
- <b>--Changes--</b>
- -- Added a better rainbow system: tater and own stuff
- -- Added joining entries(idicated there where you can join friends with a: "W")
- <b>--BugFixes--</b>
- -- Fixed Auto dummy connect but lost Auto dummy join
- -- Fixed minor change to the 1v1 system
- <b>--Major Stuff--</b>
- ** v5.0 **
