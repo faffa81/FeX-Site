@@ -8,7 +8,7 @@
 /* Body: full-height with a linear-gradient background */
 body {
   min-height: 100vh;
-  background: linear-gradient(15deg, green, yellow);
+  background: linear-gradient(15deg, black, red);
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
