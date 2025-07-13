@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CF-Client</title>
+  <title>FeX-Client</title>
   <!-- Link to the stylesheet -->
   <link rel="stylesheet" href="style.css" />
   <!-- Favicon -->
@@ -54,51 +54,19 @@
       window.location.href = "https://github.com/faffa81/FeX-V2-Client";
     });
 
-  // Load version info from version.json and GitHub release data.
     function loadVersionInfo() {
-    // First, fetch the local version.json file.
-    fetch('../version.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response error from version.json");
-        }
-        return response.json();
-      })
-      .then(localData => {
-        // Next, fetch the latest release info from the GitHub API.
-        fetch('https://api.github.com/repos/faffa81/FeX-V2-Client/releases/latest')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error("Network response error from GitHub API");
-            }
-            return response.json();
-          })
-          .then(githubData => {
-            // Extract the browser_download_url from the first asset.
-            let downloadUrl = "Download URL not available";
-            if (githubData.assets && githubData.assets.length > 0) {
-              downloadUrl = githubData.assets[0].browser_download_url;
-            }
-            
-            // Set the download property to the fetched download URL.
-            localData.download = downloadUrl;
-            
-            // Update the DOM element with the combined information.
+        fetch('../version.json')
+          .then(response => response.json())
+          .then(localData => {
             document.getElementById('version-info').textContent =
-              `Version: ${localData.version} | Released: ${localData.release_date} | Notes: ${localData.notes} | Download URL: ${localData.download}`;
+              `Version: ${localData.version} | Released: ${localData.release_date} | Notes: ${localData.notes}`;
           })
           .catch(error => {
-            console.error("Error loading GitHub release data:", error);
-            // Display local version data without the download URL if GitHub fetch fails.
-            document.getElementById('version-info').textContent =
-              `Version: ${localData.version} | Released: ${localData.release_date} | Notes: ${localData.notes} | Download URL: unavailable`;
+            console.error("Error loading version info:", error);
+            document.getElementById('version-info').textContent = "Version info unavailable";
           });
-      })
-      .catch(error => {
-        console.error("Error loading version info:", error);
-        document.getElementById('version-info').textContent = "Version info unavailable";
-      });
-  }
+    }
+
 
     // Load and parse update logs from updatelogs.txt.
     // Expected format:
@@ -121,6 +89,20 @@
           const logButtonsDiv = document.getElementById('log-buttons');
           logButtonsDiv.innerHTML = "";
           sections.forEach(section => {
+            // Check if version is 7.0 or higher
+            if(section.version >= 7.0) {
+              const downloadContainer = document.querySelector("footer");
+              
+              const fexDownloadBtn = document.createElement("button");
+              fexDownloadBtn.textContent = `Download FeX ${section.version} (Win64)`;
+              fexDownloadBtn.classList.add("fex-download-btn"); // Apply new style
+              fexDownloadBtn.onclick = () => {
+                window.location.href = `/downloads/FeX-${section.version}-win64.zip`;
+              };
+
+              // Insert button above the existing download button
+              downloadContainer.prepend(fexDownloadBtn);
+            }
             let btn = document.createElement('button');
             btn.textContent = section.version;
             btn.classList.add('log-btn');
@@ -130,7 +112,7 @@
             };
             logButtonsDiv.appendChild(btn);
           });
-          if (sections.length > 0) {
+          if(sections.length > 0) {
             displayUpdateLog(sections[0].log);
             const firstBtn = logButtonsDiv.querySelector('button');
             firstBtn && firstBtn.classList.add('active');

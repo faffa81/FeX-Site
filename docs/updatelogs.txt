@@ -1,3 +1,24 @@
+ // v7.0 \\
+ <b><u>FeX-v7.0</b></u>
+ <b>--Changes--</b>
+ -- Added Quickactions(broken)
+ -- Added more visual customization(to lazy to do)
+ -- Added pets(from tater but with alot of custom features)
+ -- Added translater(google translate so no reliable)
+ <b>--BugFixes--</b>
+ -- Fixed reply mute not working
+ -- Tried to fix updater not known if working
+ <b>--Major Stuff--</b>
+ ** v7.0 **
+
+ // v6.1 \\
+ <b><u>FeX-v6.0</b></u>
+ <b>--Changes--</b>
+ -- Added TeeFusion support
+ <b>--BugFixes--</b>
+ <b>--Major Stuff--</b>
+ ** v6.1 **
+
  // v6.0 \\
  <b><u>FeX-v6.0</b></u>
  <b>--Changes--</b>

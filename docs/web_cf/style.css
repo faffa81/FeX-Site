@@ -8,7 +8,7 @@
 /* Body: full-height with a linear-gradient background */
 body {
   min-height: 100vh;
-  background: linear-gradient(15deg, black, red);
+  background: linear-gradient(15deg, red, black);
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
@@ -63,7 +63,7 @@ main {
   margin: 0 5px;
   font-size: 14px;
   color: #fff;
-  background-color: #008cba;
+  background-color: #740000;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -71,18 +71,18 @@ main {
 }
 
 .log-btn:hover {
-  background-color: #005f5f;
+  background-color: #ff1e1e;
 }
 
 .log-btn.active {
-  background-color: #004f4f;
+  background-color: #ff4d4d;
 }
 
 /* Scrollable update log frame */
 #update-log-frame {
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 20px;
   max-height: 300px;
   overflow-y: auto;
@@ -94,6 +94,8 @@ main {
 
 /* ---------- Footer (Bottom Section) ---------- */
 footer {
+  display: flex;
+  flex-direction: column;
   width: 90%;
   max-width: 800px;
   margin: 20px auto;
@@ -105,8 +107,7 @@ footer {
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
-  /* Use the old gradient style without the blue rounded frame */
-  background: linear-gradient(45deg, black, green);
+  background: linear-gradient(45deg, black, rgb(151, 0, 0));
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -116,7 +117,28 @@ footer {
 
 #download-btn:hover {
   transform: translateY(-2px);
+  outline: 3px solid #ff3b3b;
+  outline-offset: 2px;
 }
+
+.fex-download-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background: linear-gradient(45deg, black, rgb(151, 0, 0));
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-bottom: 10px;
+}
+
+.fex-download-btn:hover {
+  transform: translateY(-2px);
+  outline: 3px solid #ff3b3b;
+  outline-offset: 2px;
+}
+
 
 #version-info {
   font-size: 18px;
@@ -153,10 +175,10 @@ footer {
 
 .modal-content {
   background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(7px);
   margin: 10% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 2px solid #888;
   width: 80%;
   border-radius: 10px;
   max-height: 70%;
