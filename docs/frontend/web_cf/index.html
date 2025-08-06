@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FeX-Client</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="../econ.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="top-bar">
+      <div id="banner-container">
+        <img id="banner-img" class="center-logo" src="../assets/gui_logo.png" alt="Banner Image">
+      </div>
+      <button id="toggle-auth">Login / Register</button>
+    </div>
+  </header>
+
+  <!-- Auth Section (Top-right floating panel) -->
+  <section id="auth-section" class="hidden">
+    <div class="auth-panel">
+      <h2>Register</h2>
+      <input type="text" id="reg-username" placeholder="Username" />
+      <input type="password" id="reg-password" placeholder="Password" />
+      <button onclick="register()">Register</button>
+      <div id="reg-status"></div>
+
+      <h2>Login</h2>
+      <input type="text" id="login-username" placeholder="Username" />
+      <input type="password" id="login-password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <div id="login-status"></div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main>
+    <section id="update-log-section">
+      <div id="log-buttons-container">
+        <div id="log-buttons"></div>
+      </div>
+      <div id="update-log-frame">Loading update logs...</div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <button id="download-btn" onclick="showReleases()">Download Releases</button>
+    <div id="version-info">Loading version info...</div>
+    <div class="footer">
+      <p>&copy; 2025 ©faffa81</p>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div id="download-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="releases-list">Loading releases...</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
